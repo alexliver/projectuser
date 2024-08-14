@@ -12,6 +12,30 @@ class TimesheetController extends Controller
      *     path="/api/timesheets",
      *     summary="Get a list of timesheets",
      *     tags={"Timesheets"},
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         in="query",
+     *         description="Filter by user ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="project_id",
+     *         in="query",
+     *         description="Filter by project ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Parameter(
+     *         name="date",
+     *         in="query",
+     *         description="Filter by date",
+     *         @OA\Schema(type="string", format="date")
+     *     ),
+     *     @OA\Parameter(
+     *         name="task_name",
+     *         in="query",
+     *         description="Filter by task name",
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of timesheets",
@@ -19,9 +43,18 @@ class TimesheetController extends Controller
      *     )
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        $timesheets = Timesheet::with(['user', 'project'])->get();
+        $query = Timesheet::query();
+        if ($request->has('user_id')) 
+            $query->where('user_id', $request->input('user_id'));
+        if ($request->has('project_id')) 
+            $query->where('project_id', $request->input('project_id'));
+        if ($request->has('task_name')) 
+            $query->where('task_name', $request->input('task_name'));
+        if ($request->has('date')) 
+            $query->whereDate('date', $request->input('date'));
+        $timesheets = $query->with(['user', 'project'])->get();
         return response()->json($timesheets);
     }
 
@@ -50,7 +83,6 @@ class TimesheetController extends Controller
             'date' => 'required|date',
             'hours' => 'required|integer|min:0'
         ]);
-
         $timesheet = Timesheet::create($request->all());
         return response()->json($timesheet, 201);
     }
@@ -117,7 +149,6 @@ class TimesheetController extends Controller
             'date' => 'date',
             'hours' => 'integer|min:0'
         ]);
-
         $timesheet = Timesheet::findOrFail($id);
         $timesheet->update($request->all());
         return response()->json($timesheet, 200);

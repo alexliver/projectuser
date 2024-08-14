@@ -17,6 +17,36 @@ class UserController extends Controller
      *     path="/api/users",
      *     summary="Get a list of users",
      *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="first_name",
+     *         in="query",
+     *         description="Filter by first name",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="last_name",
+     *         in="query",
+     *         description="Filter by last name",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="date_of_birth",
+     *         in="query",
+     *         description="Filter by date of birth",
+     *         @OA\Schema(type="string", format="date")
+     *     ),
+     *     @OA\Parameter(
+     *         name="gender",
+     *         in="query",
+     *         description="Filter by gender",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="Filter by email",
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of users",
@@ -24,9 +54,21 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::all();
+        $query = User::query();
+        if ($request->has('first_name')) 
+            $query->where('first_name', $request->input('first_name'));
+        if ($request->has('last_name')) 
+            $query->where('last_name', $request->input('last_name'));
+        if ($request->has('date_of_birth')) 
+            $query->whereDate('date_of_birth', $request->input('date_of_birth'));
+        if ($request->has('gender')) 
+            $query->where('gender', $request->input('gender'));
+        if ($request->has('email')) 
+            $query->where('email', $request->input('email'));
+        $users = $query->get();
+        return response()->json($users);
     }
 
     /**
@@ -55,7 +97,6 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
-
         $user = User::create($request->all());
         return response()->json($user, 201);
     }
@@ -123,7 +164,6 @@ class UserController extends Controller
             'email' => 'string|email|max:255|unique:users,email,'.$id,
             'password' => 'string|min:8',
         ]);
-
         $user = User::findOrFail($id);
         $user->update($request->all());
         return response()->json($user, 200);

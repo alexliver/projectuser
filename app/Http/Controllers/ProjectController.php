@@ -12,6 +12,36 @@ class ProjectController extends Controller
      *     path="/api/projects",
      *     summary="Get a list of projects",
      *     tags={"Projects"},
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         description="Filter by name",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="department",
+     *         in="query",
+     *         description="Filter by department",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="start_date",
+     *         in="query",
+     *         description="Filter by start date",
+     *         @OA\Schema(type="string", format="date")
+     *     ),
+     *     @OA\Parameter(
+     *         name="end_date",
+     *         in="query",
+     *         description="Filter by end date",
+     *         @OA\Schema(type="string", format="date")
+     *     ),
+     *     @OA\Parameter(
+     *         name="status",
+     *         in="query",
+     *         description="Filter by status",
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="List of projects",
@@ -19,9 +49,21 @@ class ProjectController extends Controller
      *     )
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Project::all();
+        $query = Project::query();
+        if ($request->has('name')) 
+            $query->where('name', $request->input('name'));
+        if ($request->has('department')) 
+            $query->where('department', $request->input('department'));
+        if ($request->has('start_date')) 
+            $query->whereDate('start_date', $request->input('start_date'));
+        if ($request->has('end_date')) 
+            $query->whereDate('end_date', $request->input('end_date'));
+        if ($request->has('status')) 
+            $query->where('status', $request->input('status'));
+        $projects = $query->get();
+        return response()->json($projects);
     }
 
     /**
