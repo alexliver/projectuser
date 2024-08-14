@@ -159,6 +159,160 @@
                 }
             }
         },
+        "/api/timesheets": {
+            "get": {
+                "tags": [
+                    "Timesheets"
+                ],
+                "summary": "Get a list of timesheets",
+                "operationId": "7d14e54a11044a9563dc96a368456248",
+                "responses": {
+                    "200": {
+                        "description": "List of timesheets",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Timesheet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Timesheets"
+                ],
+                "summary": "Create a new timesheet",
+                "operationId": "8ba9cc447e3f3bec76dcea5d1b31250e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TimesheetCreation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Timesheet created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Timesheet"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/timesheets/{id}": {
+            "get": {
+                "tags": [
+                    "Timesheets"
+                ],
+                "summary": "Get a specific timesheet by ID",
+                "operationId": "89364e04d8fa619fe528df56f95f214e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Timesheet details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Timesheet"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Timesheet not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Timesheets"
+                ],
+                "summary": "Update a timesheet by ID",
+                "operationId": "1e2d4783ee7313169d62815d902869b5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TimesheetCreation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Timesheet updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Timesheet"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Timesheet not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Timesheets"
+                ],
+                "summary": "Delete a timesheet by ID",
+                "operationId": "26cef4314ca1a4aafce3c24b7c8a26e2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Timesheet deleted"
+                    },
+                    "404": {
+                        "description": "Timesheet not found"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -387,6 +541,72 @@
                 },
                 "type": "object"
             },
+            "TimesheetCreation": {
+                "required": [
+                    "user_id",
+                    "project_id",
+                    "task_name",
+                    "date",
+                    "hours"
+                ],
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "project_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "task_name": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "hours": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "type": "object"
+            },
+            "Timesheet": {
+                "required": [
+                    "user_id",
+                    "project_id",
+                    "task_name",
+                    "date",
+                    "hours"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "project_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "task_name": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "hours": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "type": "object"
+            },
             "UserCreation": {
                 "required": [
                     "first_name",
@@ -471,6 +691,10 @@
         {
             "name": "Projects",
             "description": "Projects"
+        },
+        {
+            "name": "Timesheets",
+            "description": "Timesheets"
         },
         {
             "name": "Users",

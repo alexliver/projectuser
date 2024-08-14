@@ -36,5 +36,10 @@ class User extends Model
     {
         return $this->belongsToMany(Project::class);
     }
+
+    public function timesheets()
+    {
+        return $this->hasMany(Timesheet::class);
+    }
 }
 
