@@ -104,6 +104,27 @@ class UserController extends Controller
     }
 
     /**
+     * @OA\Post(
+     *     path="/api/users/register",
+     *     summary="Register",
+     *     tags={"Users", "Authentication"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/UserCreation")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="User created",
+     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *     ),
+     * )
+     */
+    public function register(Request $request)
+    {
+        return $this->store($request);
+    }
+
+    /**
      * @OA\Get(
      *     path="/api/users/{id}",
      *     summary="Get a specific user by ID",

@@ -548,6 +548,38 @@
                 ]
             }
         },
+        "/api/users/register": {
+            "post": {
+                "tags": [
+                    "Users",
+                    "Authentication"
+                ],
+                "summary": "Register",
+                "operationId": "758e750cf3b7f1b6a9c906c443a12b83",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCreation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/users/{id}": {
             "get": {
                 "tags": [
@@ -655,6 +687,71 @@
                     },
                     "404": {
                         "description": "User not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/user-project-management/join-project/{id}": {
+            "get": {
+                "tags": [
+                    "User Project Management"
+                ],
+                "summary": "Join a project",
+                "operationId": "636060196d5f8042999bb67acb85f206",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Project details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Project"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/user-project-management/my-projects": {
+            "get": {
+                "tags": [
+                    "User Project Management"
+                ],
+                "summary": "Get a list of the current user's projects",
+                "operationId": "5539c8d8b1f138af35dfe3fdf7524ead",
+                "responses": {
+                    "200": {
+                        "description": "List of projects",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Project"
+                                    }
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -1033,6 +1130,10 @@
         {
             "name": "Authentication",
             "description": "Authentication"
+        },
+        {
+            "name": "User Project Management",
+            "description": "User Project Management"
         }
     ]
 }
