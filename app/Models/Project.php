@@ -33,12 +33,13 @@ class Project extends Model
         return $this->hasMany(Timesheet::class);
     }
 
-    public function isActive() 
+    public function isActive($date=null) 
     {
+        if (!$date)
+            $date = Carbon::now(); 
         if ($this->status == 'finished')
             return false;
-        $now = Carbon::now(); 
-        if ($now < $this->start_date || $now > $this->end_date)
+        if ($date < $this->start_date || $date > $this->end_date)
             return false;
         return true;
     }

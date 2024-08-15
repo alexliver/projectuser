@@ -13,3 +13,7 @@ Route::get('/user-project-management/join-project/{id}',
     [UserProjectManagementController::class, 'joinProject'])->middleware('auth:api');
 Route::get('/user-project-management/my-projects/', 
     [UserProjectManagementController::class, 'myProjects'])->middleware('auth:api');
+Route::post('/user-project-management/log-timesheet/{id}', 
+    [UserProjectManagementController::class, 'logTimesheet'])->middleware('auth:api');
+Route::get('/user-project-management/my-timesheets/{id}', 
+    [UserProjectManagementController::class, 'myTimesheets'])->middleware('auth:api');

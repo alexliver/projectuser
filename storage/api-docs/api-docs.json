@@ -761,6 +761,109 @@
                 ]
             }
         },
+        "/api/user-project-management/log-timesheet/{id}": {
+            "post": {
+                "tags": [
+                    "User Project Management"
+                ],
+                "summary": "Create a new timesheet",
+                "operationId": "83bce94cfa0dbc53783a57ce3c9e6b34",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "task_name",
+                                    "date",
+                                    "hours"
+                                ],
+                                "properties": {
+                                    "task_name": {
+                                        "type": "string",
+                                        "example": "task"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "hours": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Timesheet created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Timesheet"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/user-project-management/my-timesheets/{id}": {
+            "get": {
+                "tags": [
+                    "User Project Management"
+                ],
+                "summary": "Get a list of timesheets of the current user",
+                "operationId": "28332f2d67c7a3f399f8b1801c815772",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of timesheets",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Timesheet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/oauth/token": {
             "post": {
                 "tags": [
