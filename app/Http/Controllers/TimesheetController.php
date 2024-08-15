@@ -83,7 +83,7 @@ class TimesheetController extends Controller
             'project_id' => 'required|exists:projects,id',
             'task_name' => 'required|string|max:255',
             'date' => 'required|date',
-            'hours' => 'required|integer|min:0'
+            'hours' => 'required|integer|min:1|max:24'
         ]);
         $timesheet = Timesheet::create($request->all());
         return response()->json($timesheet, 201);

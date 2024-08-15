@@ -39,7 +39,8 @@ class Project extends Model
             $date = Carbon::now(); 
         if ($this->status == 'finished')
             return false;
-        if ($date < $this->start_date || $date > $this->end_date)
+        $endDate = Carbon::parse($this->end_date)->addDay();
+        if ($date < $this->start_date || $date >= $endDate)
             return false;
         return true;
     }

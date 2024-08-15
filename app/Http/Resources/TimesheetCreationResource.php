@@ -13,7 +13,7 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(property="project_id", type="integer", format="int64"),
  *     @OA\Property(property="task_name", type="string"),
  *     @OA\Property(property="date", type="string", format="date"),
- *     @OA\Property(property="hours", type="integer", format="int64"),
+ *     @OA\Property(property="hours", type="integer", format="int64", example="1"),
  * )
  */
 class TimesheetCreationResource {}

@@ -24,6 +24,11 @@ class UserProjectProcess
         $user->projects()->attach($project->id); 
     }
 
+    /**
+     * logs timesheet for a user.
+     * throws DomainException if the user hasn't joined the project
+     * throws DomainException if the project is not active for the date
+     */
     public static function logTimesheet(User $user, Project $project, $task_name, $date, $hours)
     {
         $exists = $user->projects()->where('project_id', $project->id)->exists();

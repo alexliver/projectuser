@@ -1087,7 +1087,8 @@
                     },
                     "hours": {
                         "type": "integer",
-                        "format": "int64"
+                        "format": "int64",
+                        "example": "1"
                     }
                 },
                 "type": "object"

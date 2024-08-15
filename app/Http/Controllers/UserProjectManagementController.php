@@ -93,7 +93,7 @@ class UserProjectManagementController extends Controller
         $request->validate([
             'task_name' => 'required|string|max:255',
             'date' => 'required|date',
-            'hours' => 'required|integer|min:0'
+            'hours' => 'required|integer|min:1|max:24'
         ]);
         $user = $request->user();
         $project = Project::findOrFail($id);
