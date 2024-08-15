@@ -12,6 +12,7 @@ class ProjectController extends Controller
      *     path="/api/projects",
      *     summary="Get a list of projects",
      *     tags={"Projects"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="name",
      *         in="query",
@@ -71,6 +72,7 @@ class ProjectController extends Controller
      *     path="/api/projects",
      *     summary="Create a new project",
      *     tags={"Projects"},
+     *     security={{ "bearer": {} }},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(ref="#/components/schemas/ProjectCreation")
@@ -101,6 +103,7 @@ class ProjectController extends Controller
      *     path="/api/projects/{id}",
      *     summary="Get a specific project by ID",
      *     tags={"Projects"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -128,6 +131,7 @@ class ProjectController extends Controller
      *     path="/api/projects/{id}",
      *     summary="Update a project by ID",
      *     tags={"Projects"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -169,6 +173,7 @@ class ProjectController extends Controller
      *     path="/api/projects/{id}",
      *     summary="Delete a project by ID",
      *     tags={"Projects"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

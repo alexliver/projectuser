@@ -12,6 +12,7 @@ class TimesheetController extends Controller
      *     path="/api/timesheets",
      *     summary="Get a list of timesheets",
      *     tags={"Timesheets"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="user_id",
      *         in="query",
@@ -63,6 +64,7 @@ class TimesheetController extends Controller
      *     path="/api/timesheets",
      *     summary="Create a new timesheet",
      *     tags={"Timesheets"},
+     *     security={{ "bearer": {} }},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(ref="#/components/schemas/TimesheetCreation")
@@ -92,6 +94,7 @@ class TimesheetController extends Controller
      *     path="/api/timesheets/{id}",
      *     summary="Get a specific timesheet by ID",
      *     tags={"Timesheets"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -119,6 +122,7 @@ class TimesheetController extends Controller
      *     path="/api/timesheets/{id}",
      *     summary="Update a timesheet by ID",
      *     tags={"Timesheets"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -159,6 +163,7 @@ class TimesheetController extends Controller
      *     path="/api/timesheets/{id}",
      *     summary="Delete a timesheet by ID",
      *     tags={"Timesheets"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

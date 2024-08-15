@@ -17,6 +17,7 @@ class UserController extends Controller
      *     path="/api/users",
      *     summary="Get a list of users",
      *     tags={"Users"},
+     *     security={{ "bearer": {} }},
      *     @OA\Parameter(
      *         name="first_name",
      *         in="query",
@@ -51,7 +52,7 @@ class UserController extends Controller
      *         response=200,
      *         description="List of users",
      *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/User"))
-     *     )
+     *     ),
      * )
      */
     public function index(Request $request)
@@ -76,6 +77,7 @@ class UserController extends Controller
      *     path="/api/users",
      *     summary="Create a new user",
      *     tags={"Users"},
+     *     security={{"bearer":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(ref="#/components/schemas/UserCreation")
@@ -84,7 +86,7 @@ class UserController extends Controller
      *         response=201,
      *         description="User created",
      *         @OA\JsonContent(ref="#/components/schemas/User")
-     *     )
+     *     ),
      * )
      */
     public function store(Request $request)
@@ -106,6 +108,7 @@ class UserController extends Controller
      *     path="/api/users/{id}",
      *     summary="Get a specific user by ID",
      *     tags={"Users"},
+     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -120,7 +123,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=404,
      *         description="User not found"
-     *     )
+     *     ),
      * )
      */
     public function show($id)
@@ -133,6 +136,7 @@ class UserController extends Controller
      *     path="/api/users/{id}",
      *     summary="Update a user by ID",
      *     tags={"Users"},
+     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -151,7 +155,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=404,
      *         description="User not found"
-     *     )
+     *     ),
      * )
      */
     public function update(Request $request, $id)
@@ -174,6 +178,7 @@ class UserController extends Controller
      *     path="/api/users/{id}",
      *     summary="Delete a user by ID",
      *     tags={"Users"},
+     *     security={{"bearer":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -187,7 +192,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=404,
      *         description="User not found"
-     *     )
+     *     ),
      * )
      */
     public function destroy($id)
