@@ -21,8 +21,8 @@ class User extends Authenticatable
     ];
 
     public static $genders = [
-        'male' => 'Male',
-        'female' => 'Female',
+        Gender::Male->value=> 'Male',
+        Gender::Female->value=> 'Female',
     ];
 
     protected $hidden = [

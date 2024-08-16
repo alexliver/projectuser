@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Project extends Model
 {
     use HasFactory;
@@ -18,9 +19,11 @@ class Project extends Model
         'status',
     ];
 
+
+
     public static $statuses = [
-        'in_progress' => 'In Progress',
-        'finished' => 'Finished',
+        ProjectStatus::InProgress->value => 'In Progress',
+        ProjectStatus::Finished->value => 'Finished',
     ];
 
     public function users()
@@ -37,7 +40,7 @@ class Project extends Model
     {
         if (!$date)
             $date = Carbon::now(); 
-        if ($this->status == 'finished')
+        if ($this->status == ProjectStatus::Finished->value)
             return false;
         $endDate = Carbon::parse($this->end_date)->addDay();
         if ($date < $this->start_date || $date >= $endDate)
